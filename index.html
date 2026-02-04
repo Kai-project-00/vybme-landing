@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VYB Me — Your AI Stylist</title>
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="VYB Me — Your AI Stylist">
+    <meta property="og:description" content="Get instant feedback on any outfit. Know if it suits you before you buy.">
+    <meta property="og:type" content="website">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        body {
+            background: #000;
+            color: #fff;
+        }
+        
+        .text-gradient {
+            background: linear-gradient(90deg, #fff 0%, #a1a1aa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero-gradient {
+            background: radial-gradient(ellipse at top, #1a1a2e 0%, #000 70%);
+        }
+        
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-4px);
+            background: rgba(255,255,255,0.08);
+        }
+        
+        .input-minimal {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: border-color 0.2s;
+        }
+        
+        .input-minimal:focus {
+            border-color: rgba(255,255,255,0.5);
+            outline: none;
+        }
+        
+        .btn-primary {
+            background: #fff;
+            color: #000;
+            transition: all 0.2s;
+        }
+        
+        .btn-primary:hover {
+            background: #e5e5e5;
+            transform: scale(1.02);
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .type-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        
+        .feature-highlight {
+            background: linear-gradient(135deg, rgba(99,102,241,0.1) 0%, rgba(168,85,247,0.1) 100%);
+            border: 1px solid rgba(168,85,247,0.2);
+        }
+    </style>
+</head>
+<body class="antialiased">
+    
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 px-6 py-4 bg-black/50 backdrop-blur-md">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <span class="text-xl font-semibold tracking-tight">VYB Me</span>
+            <a href="#waitlist" class="text-sm text-zinc-400 hover:text-white transition-colors">
+                Get Early Access
+            </a>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero-gradient min-h-screen flex items-center justify-center px-6 pt-20">
+        <div class="max-w-4xl mx-auto text-center fade-in">
+            
+            <!-- Tagline -->
+            <p class="text-zinc-500 text-sm tracking-widest uppercase mb-6">
+                Your Personal AI Stylist
+            </p>
+            
+            <!-- Main Headline -->
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-semibold tracking-tight leading-none mb-8">
+                Does this<br>
+                <span class="text-gradient">suit me?</span>
+            </h1>
+            
+            <!-- Subheadline -->
+            <p class="text-xl md:text-2xl text-zinc-400 max-w-2xl mx-auto mb-12 leading-relaxed">
+                Get instant AI feedback on any outfit before you buy.
+                No more regrets. No more wasted money.
+            </p>
+            
+            <!-- CTA -->
+            <div id="waitlist" class="max-w-md mx-auto">
+                <form id="waitlist-form" class="flex flex-col sm:flex-row gap-3">
+                    <input 
+                        type="email" 
+                        id="email"
+                        placeholder="Enter your email"
+                        required
+                        class="input-minimal flex-1 px-5 py-4 rounded-full text-white placeholder-zinc-600"
+                    >
+                    <button 
+                        type="submit"
+                        class="btn-primary px-8 py-4 rounded-full font-medium whitespace-nowrap"
+                    >
+                        Join Waitlist
+                    </button>
+                </form>
+                <p class="text-zinc-600 text-sm mt-4">
+                    Early access includes 1 month free premium.
+                </p>
+            </div>
+            
+        </div>
+    </section>
+    
+    <!-- Two Core Features -->
+    <section class="py-32 px-6 border-t border-zinc-900">
+        <div class="max-w-6xl mx-auto">
+            
+            <h2 class="text-3xl md:text-4xl font-semibold text-center mb-6 tracking-tight">
+                Two ways to use VYB Me
+            </h2>
+            <p class="text-zinc-500 text-center mb-16 max-w-xl mx-auto">
+                First, discover your style type. Then, get instant feedback every time you shop.
+            </p>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                
+                <!-- Feature 1: Style Feedback -->
+                <div class="feature-highlight rounded-3xl p-10">
+                    <div class="text-5xl mb-6">👗</div>
+                    <h3 class="text-2xl font-semibold mb-4">Instant Style Feedback</h3>
+                    <p class="text-zinc-400 leading-relaxed mb-6">
+                        Shopping online? In a fitting room? Upload any outfit and get immediate feedback on whether it suits your style and body type.
+                    </p>
+                    <ul class="space-y-3 text-zinc-400">
+                        <li class="flex items-center gap-3">
+                            <span class="text-green-400">✓</span>
+                            "This color complements your skin tone"
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="text-green-400">✓</span>
+                            "The fit flatters your body shape"
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="text-green-400">✓</span>
+                            "Matches your Casual Easygoing style"
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Feature 2: VYB Type -->
+                <div class="type-card rounded-3xl p-10">
+                    <div class="text-5xl mb-6">✨</div>
+                    <h3 class="text-2xl font-semibold mb-4">Find Your VYB Type</h3>
+                    <p class="text-zinc-400 leading-relaxed mb-6">
+                        Discover your unique style archetype from 18 VYB types. Like MBTI, but for fashion. Your type guides all future recommendations.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-white/5 rounded-full text-sm">Casual Easygoing</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-full text-sm">Soft Romantic</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-full text-sm">Urban Edge</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-full text-sm">Minimal Chic</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-full text-sm text-zinc-500">+14 more</span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+    
+    <!-- How It Works -->
+    <section class="py-32 px-6 border-t border-zinc-900">
+        <div class="max-w-6xl mx-auto">
+            
+            <h2 class="text-3xl md:text-4xl font-semibold text-center mb-20 tracking-tight">
+                How it works
+            </h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                
+                <div class="text-center">
+                    <div class="w-16 h-16 rounded-full bg-zinc-900 flex items-center justify-center mx-auto mb-6 text-2xl">
+                        📸
+                    </div>
+                    <h3 class="text-xl font-medium mb-3">1. Upload</h3>
+                    <p class="text-zinc-500 leading-relaxed">
+                        Take a photo of your outfit or screenshot clothes you're considering buying.
+                    </p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-16 h-16 rounded-full bg-zinc-900 flex items-center justify-center mx-auto mb-6 text-2xl">
+                        🤖
+                    </div>
+                    <h3 class="text-xl font-medium mb-3">2. AI Analyzes</h3>
+                    <p class="text-zinc-500 leading-relaxed">
+                        GPT-4 Vision instantly analyzes fit, color, and style compatibility with your VYB type.
+                    </p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-16 h-16 rounded-full bg-zinc-900 flex items-center justify-center mx-auto mb-6 text-2xl">
+                        💡
+                    </div>
+                    <h3 class="text-xl font-medium mb-3">3. Decide Confidently</h3>
+                    <p class="text-zinc-500 leading-relaxed">
+                        Get a clear recommendation: buy it, skip it, or try alternatives. Shop without regret.
+                    </p>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+    
+    <!-- Use Cases -->
+    <section class="py-32 px-6 border-t border-zinc-900 bg-zinc-950">
+        <div class="max-w-6xl mx-auto">
+            
+            <h2 class="text-3xl md:text-4xl font-semibold text-center mb-6 tracking-tight">
+                Perfect for every shopping moment
+            </h2>
+            <p class="text-zinc-500 text-center mb-16">
+                Your AI stylist is always in your pocket.
+            </p>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                
+                <div class="type-card rounded-2xl p-6 card-hover">
+                    <div class="text-3xl mb-4">🛍️</div>
+                    <h3 class="font-medium mb-2">Online Shopping</h3>
+                    <p class="text-zinc-500 text-sm">Screenshot that dress you're eyeing. Get instant feedback before checkout.</p>
+                </div>
+                
+                <div class="type-card rounded-2xl p-6 card-hover">
+                    <div class="text-3xl mb-4">👔</div>
+                    <h3 class="font-medium mb-2">Fitting Room</h3>
+                    <p class="text-zinc-500 text-sm">Not sure if it works? Snap a photo and get a second opinion instantly.</p>
+                </div>
+                
+                <div class="type-card rounded-2xl p-6 card-hover">
+                    <div class="text-3xl mb-4">👗</div>
+                    <h3 class="font-medium mb-2">Daily Outfits</h3>
+                    <p class="text-zinc-500 text-sm">Check your OOTD before leaving. Make sure everything works together.</p>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+    
+    <!-- Final CTA -->
+    <section class="py-32 px-6 border-t border-zinc-900">
+        <div class="max-w-2xl mx-auto text-center">
+            
+            <h2 class="text-3xl md:text-5xl font-semibold mb-8 tracking-tight">
+                Never regret a purchase again
+            </h2>
+            
+            <p class="text-zinc-500 text-lg mb-10">
+                Join the waitlist. Be first to get your personal AI stylist.
+            </p>
+            
+            <a href="#waitlist" class="btn-primary inline-block px-10 py-4 rounded-full font-medium text-lg">
+                Get Early Access
+            </a>
+            
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="py-12 px-6 border-t border-zinc-900">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <span class="text-zinc-600 text-sm">© 2026 VYB Me</span>
+            <div class="flex gap-6 text-sm text-zinc-600">
+                <a href="#" class="hover:text-white transition-colors">Privacy</a>
+                <a href="#" class="hover:text-white transition-colors">Terms</a>
+                <a href="mailto:hello@vybme.com" class="hover:text-white transition-colors">Contact</a>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Form Handler -->
+    <script>
+        document.getElementById('waitlist-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const btn = this.querySelector('button');
+            
+            btn.textContent = 'Added ✓';
+            btn.disabled = true;
+            
+            // TODO: Connect to backend
+            setTimeout(() => {
+                btn.textContent = 'Join Waitlist';
+                btn.disabled = false;
+                this.reset();
+            }, 2000);
+        });
+    </script>
+    
+</body>
+</html>
