@@ -19,25 +19,9 @@
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         }
         
-        html {
-            scroll-behavior: smooth;
-        }
-        
         body {
             background: #000;
             color: #fff;
-        }
-        
-        /* Scroll Progress Bar */
-        .scroll-progress {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 2px;
-            background: linear-gradient(90deg, #8b5cf6 0%, #ec4899 100%);
-            z-index: 100;
-            width: 0%;
-            transition: width 0.1s ease-out;
         }
         
         .text-gradient {
@@ -81,56 +65,13 @@
             transform: scale(1.02);
         }
         
-        /* Scroll Reveal Animations */
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        .fade-in {
+            animation: fadeIn 0.8s ease-out;
         }
         
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .reveal-delay-1 { transition-delay: 0.1s; }
-        .reveal-delay-2 { transition-delay: 0.2s; }
-        .reveal-delay-3 { transition-delay: 0.3s; }
-        .reveal-delay-4 { transition-delay: 0.4s; }
-        .reveal-delay-5 { transition-delay: 0.5s; }
-        
-        /* Stagger children */
-        .stagger-children .reveal-child {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        
-        .stagger-children.active .reveal-child {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .stagger-children.active .reveal-child:nth-child(1) { transition-delay: 0.1s; }
-        .stagger-children.active .reveal-child:nth-child(2) { transition-delay: 0.15s; }
-        .stagger-children.active .reveal-child:nth-child(3) { transition-delay: 0.2s; }
-        .stagger-children.active .reveal-child:nth-child(4) { transition-delay: 0.25s; }
-        .stagger-children.active .reveal-child:nth-child(5) { transition-delay: 0.3s; }
-        
-        /* Hero fade in on load */
-        .hero-content {
-            animation: heroFadeIn 1s ease-out;
-        }
-        
-        @keyframes heroFadeIn {
-            from { 
-                opacity: 0; 
-                transform: translateY(30px); 
-            }
-            to { 
-                opacity: 1; 
-                transform: translateY(0); 
-            }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         .type-card {
@@ -142,35 +83,9 @@
             background: linear-gradient(135deg, rgba(99,102,241,0.1) 0%, rgba(168,85,247,0.1) 100%);
             border: 1px solid rgba(168,85,247,0.2);
         }
-        
-        /* Type tags stacking animation */
-        .type-tags .tag {
-            opacity: 0;
-            transform: translateX(-10px) scale(0.9);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        
-        .type-tags.active .tag {
-            opacity: 1;
-            transform: translateX(0) scale(1);
-        }
-        
-        .type-tags.active .tag:nth-child(1) { transition-delay: 0.1s; }
-        .type-tags.active .tag:nth-child(2) { transition-delay: 0.2s; }
-        .type-tags.active .tag:nth-child(3) { transition-delay: 0.3s; }
-        .type-tags.active .tag:nth-child(4) { transition-delay: 0.4s; }
-        .type-tags.active .tag:nth-child(5) { transition-delay: 0.5s; }
-        
-        /* Parallax subtle effect */
-        .parallax-slow {
-            will-change: transform;
-        }
     </style>
 </head>
 <body class="antialiased">
-    
-    <!-- Scroll Progress Bar -->
-    <div class="scroll-progress" id="scrollProgress"></div>
     
     <!-- Navigation -->
     <nav class="fixed top-0 left-0 right-0 z-50 px-6 py-4 bg-black/50 backdrop-blur-md">
@@ -184,7 +99,7 @@
     
     <!-- Hero Section -->
     <section class="hero-gradient min-h-screen flex items-center justify-center px-6 pt-20">
-        <div class="max-w-4xl mx-auto text-center hero-content">
+        <div class="max-w-4xl mx-auto text-center fade-in">
             
             <!-- Tagline -->
             <p class="text-zinc-500 text-sm tracking-widest uppercase mb-6">
@@ -232,32 +147,32 @@
     <section class="py-32 px-6 border-t border-zinc-900">
         <div class="max-w-6xl mx-auto">
             
-            <h2 class="text-3xl md:text-4xl font-semibold text-center mb-6 tracking-tight reveal">
+            <h2 class="text-3xl md:text-4xl font-semibold text-center mb-6 tracking-tight">
                 Two ways to use VYB Me
             </h2>
-            <p class="text-zinc-500 text-center mb-16 max-w-xl mx-auto reveal reveal-delay-1">
+            <p class="text-zinc-500 text-center mb-16 max-w-xl mx-auto">
                 First, discover your style type. Then, get instant feedback every time you shop.
             </p>
             
             <div class="grid md:grid-cols-2 gap-8">
                 
                 <!-- Feature 1: Style Feedback -->
-                <div class="feature-highlight rounded-3xl p-10 reveal reveal-delay-2">
+                <div class="feature-highlight rounded-3xl p-10">
                     <div class="text-5xl mb-6">👗</div>
                     <h3 class="text-2xl font-semibold mb-4">Instant Style Feedback</h3>
                     <p class="text-zinc-400 leading-relaxed mb-6">
                         Shopping online? In a fitting room? Upload any outfit and get immediate feedback on whether it suits your style and body type.
                     </p>
-                    <ul class="space-y-3 text-zinc-400 stagger-children" id="feedback-list">
-                        <li class="flex items-center gap-3 reveal-child">
+                    <ul class="space-y-3 text-zinc-400">
+                        <li class="flex items-center gap-3">
                             <span class="text-green-400">✓</span>
                             "This color complements your skin tone"
                         </li>
-                        <li class="flex items-center gap-3 reveal-child">
+                        <li class="flex items-center gap-3">
                             <span class="text-green-400">✓</span>
                             "The fit flatters your body shape"
                         </li>
-                        <li class="flex items-center gap-3 reveal-child">
+                        <li class="flex items-center gap-3">
                             <span class="text-green-400">✓</span>
                             "Matches your Casual Easygoing style"
                         </li>
@@ -265,18 +180,18 @@
                 </div>
                 
                 <!-- Feature 2: VYB Type -->
-                <div class="type-card rounded-3xl p-10 reveal reveal-delay-3">
+                <div class="type-card rounded-3xl p-10">
                     <div class="text-5xl mb-6">✨</div>
                     <h3 class="text-2xl font-semibold mb-4">Find Your VYB Type</h3>
                     <p class="text-zinc-400 leading-relaxed mb-6">
                         Discover your unique style archetype from 18 VYB types. Like MBTI, but for fashion. Your type guides all future recommendations.
                     </p>
-                    <div class="flex flex-wrap gap-2 type-tags" id="type-tags">
-                        <span class="tag px-3 py-1 bg-white/5 rounded-full text-sm">Casual Easygoing</span>
-                        <span class="tag px-3 py-1 bg-white/5 rounded-full text-sm">Soft Romantic</span>
-                        <span class="tag px-3 py-1 bg-white/5 rounded-full text-sm">Urban Edge</span>
-                        <span class="tag px-3 py-1 bg-white/5 rounded-full text-sm">Minimal Chic</span>
-                        <span class="tag px-3 py-1 bg-white/5 rounded-full text-sm text-zinc-500">+14 more</span>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-white/5 rounded-full text-sm">Casual Easygoing</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-full text-sm">Soft Romantic</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-full text-sm">Urban Edge</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-full text-sm">Minimal Chic</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-full text-sm text-zinc-500">+14 more</span>
                     </div>
                 </div>
                 
@@ -288,13 +203,13 @@
     <section class="py-32 px-6 border-t border-zinc-900">
         <div class="max-w-6xl mx-auto">
             
-            <h2 class="text-3xl md:text-4xl font-semibold text-center mb-20 tracking-tight reveal">
+            <h2 class="text-3xl md:text-4xl font-semibold text-center mb-20 tracking-tight">
                 How it works
             </h2>
             
             <div class="grid md:grid-cols-3 gap-8">
                 
-                <div class="text-center reveal reveal-delay-1">
+                <div class="text-center">
                     <div class="w-16 h-16 rounded-full bg-zinc-900 flex items-center justify-center mx-auto mb-6 text-2xl">
                         📸
                     </div>
@@ -304,7 +219,7 @@
                     </p>
                 </div>
                 
-                <div class="text-center reveal reveal-delay-2">
+                <div class="text-center">
                     <div class="w-16 h-16 rounded-full bg-zinc-900 flex items-center justify-center mx-auto mb-6 text-2xl">
                         🤖
                     </div>
@@ -314,7 +229,7 @@
                     </p>
                 </div>
                 
-                <div class="text-center reveal reveal-delay-3">
+                <div class="text-center">
                     <div class="w-16 h-16 rounded-full bg-zinc-900 flex items-center justify-center mx-auto mb-6 text-2xl">
                         💡
                     </div>
@@ -332,28 +247,28 @@
     <section class="py-32 px-6 border-t border-zinc-900 bg-zinc-950">
         <div class="max-w-6xl mx-auto">
             
-            <h2 class="text-3xl md:text-4xl font-semibold text-center mb-6 tracking-tight reveal">
+            <h2 class="text-3xl md:text-4xl font-semibold text-center mb-6 tracking-tight">
                 Perfect for every shopping moment
             </h2>
-            <p class="text-zinc-500 text-center mb-16 reveal reveal-delay-1">
+            <p class="text-zinc-500 text-center mb-16">
                 Your AI stylist is always in your pocket.
             </p>
             
             <div class="grid md:grid-cols-3 gap-6">
                 
-                <div class="type-card rounded-2xl p-6 card-hover reveal reveal-delay-2">
+                <div class="type-card rounded-2xl p-6 card-hover">
                     <div class="text-3xl mb-4">🛍️</div>
                     <h3 class="font-medium mb-2">Online Shopping</h3>
                     <p class="text-zinc-500 text-sm">Screenshot that dress you're eyeing. Get instant feedback before checkout.</p>
                 </div>
                 
-                <div class="type-card rounded-2xl p-6 card-hover reveal reveal-delay-3">
+                <div class="type-card rounded-2xl p-6 card-hover">
                     <div class="text-3xl mb-4">👔</div>
                     <h3 class="font-medium mb-2">Fitting Room</h3>
                     <p class="text-zinc-500 text-sm">Not sure if it works? Snap a photo and get a second opinion instantly.</p>
                 </div>
                 
-                <div class="type-card rounded-2xl p-6 card-hover reveal reveal-delay-4">
+                <div class="type-card rounded-2xl p-6 card-hover">
                     <div class="text-3xl mb-4">👗</div>
                     <h3 class="font-medium mb-2">Daily Outfits</h3>
                     <p class="text-zinc-500 text-sm">Check your OOTD before leaving. Make sure everything works together.</p>
@@ -367,15 +282,15 @@
     <section class="py-32 px-6 border-t border-zinc-900">
         <div class="max-w-2xl mx-auto text-center">
             
-            <h2 class="text-3xl md:text-5xl font-semibold mb-8 tracking-tight reveal">
+            <h2 class="text-3xl md:text-5xl font-semibold mb-8 tracking-tight">
                 Never regret a purchase again
             </h2>
             
-            <p class="text-zinc-500 text-lg mb-10 reveal reveal-delay-1">
+            <p class="text-zinc-500 text-lg mb-10">
                 Join the waitlist. Be first to get your personal AI stylist.
             </p>
             
-            <a href="#waitlist" class="btn-primary inline-block px-10 py-4 rounded-full font-medium text-lg reveal reveal-delay-2">
+            <a href="#waitlist" class="btn-primary inline-block px-10 py-4 rounded-full font-medium text-lg">
                 Get Early Access
             </a>
             
@@ -394,35 +309,8 @@
         </div>
     </footer>
     
+    <!-- Form Handler -->
     <script>
-        // Scroll Progress Bar
-        window.addEventListener('scroll', () => {
-            const scrollTop = window.scrollY;
-            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const scrollPercent = (scrollTop / docHeight) * 100;
-            document.getElementById('scrollProgress').style.width = scrollPercent + '%';
-        });
-        
-        // Scroll Reveal
-        const revealElements = document.querySelectorAll('.reveal, .stagger-children, .type-tags');
-        
-        const revealOnScroll = () => {
-            const windowHeight = window.innerHeight;
-            
-            revealElements.forEach(el => {
-                const elementTop = el.getBoundingClientRect().top;
-                const revealPoint = 150;
-                
-                if (elementTop < windowHeight - revealPoint) {
-                    el.classList.add('active');
-                }
-            });
-        };
-        
-        window.addEventListener('scroll', revealOnScroll);
-        window.addEventListener('load', revealOnScroll);
-        
-        // Form Handler
         document.getElementById('waitlist-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const email = document.getElementById('email').value;

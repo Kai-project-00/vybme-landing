@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VYB — AI Style Analysis</title>
+    
+    <meta property="og:title" content="VYB — AI Style Analysis">
+    <meta property="og:description" content="Discover your style type. Get instant outfit feedback.">
+    <meta property="og:type" content="website">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --bg: #0a0a0a;
+            --bg-card: #111111;
+            --bg-hover: #1a1a1a;
+            --text: #ffffff;
+            --text-secondary: #737373;
+            --text-tertiary: #525252;
+            --border: #262626;
+            --accent: #e5e5e5;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        /* Typography */
+        .text-xs { font-size: 0.75rem; }
+        .text-sm { font-size: 0.875rem; }
+        .text-base { font-size: 1rem; }
+        .text-lg { font-size: 1.125rem; }
+        .text-xl { font-size: 1.25rem; }
+        .text-2xl { font-size: 1.5rem; }
+        .text-3xl { font-size: 1.875rem; }
+        .text-4xl { font-size: 2.25rem; }
+        .text-5xl { font-size: 3rem; }
+        .text-6xl { font-size: 3.75rem; }
+        
+        .font-light { font-weight: 300; }
+        .font-normal { font-weight: 400; }
+        .font-medium { font-weight: 500; }
+        .font-semibold { font-weight: 600; }
+        
+        .tracking-tight { letter-spacing: -0.025em; }
+        .tracking-wide { letter-spacing: 0.1em; }
+        .uppercase { text-transform: uppercase; }
+        
+        .text-secondary { color: var(--text-secondary); }
+        .text-tertiary { color: var(--text-tertiary); }
+        
+        /* Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        
+        @media (min-width: 768px) {
+            .container { padding: 0 48px; }
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 20px 0;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+        
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.125rem;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+        }
+        
+        .nav-link {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: color 0.2s;
+        }
+        
+        .nav-link:hover {
+            color: var(--text);
+        }
+        
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 0 80px;
+        }
+        
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 64px;
+            align-items: center;
+        }
+        
+        @media (min-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        .hero-text h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 500;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 24px;
+        }
+        
+        .hero-text p {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            max-width: 400px;
+            margin-bottom: 40px;
+        }
+        
+        /* Form */
+        .waitlist-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-width: 360px;
+        }
+        
+        @media (min-width: 640px) {
+            .waitlist-form {
+                flex-direction: row;
+            }
+        }
+        
+        .input {
+            flex: 1;
+            padding: 14px 20px;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text);
+            font-size: 0.9rem;
+            transition: border-color 0.2s;
+        }
+        
+        .input::placeholder {
+            color: var(--text-tertiary);
+        }
+        
+        .input:focus {
+            outline: none;
+            border-color: var(--text-secondary);
+        }
+        
+        .btn {
+            padding: 14px 28px;
+            background: var(--text);
+            color: var(--bg);
+            border: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: opacity 0.2s, transform 0.2s;
+            white-space: nowrap;
+        }
+        
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+        
+        .form-note {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+            margin-top: 8px;
+        }
+        
+        /* Hero Visual */
+        .hero-visual {
+            position: relative;
+            aspect-ratio: 4/5;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .hero-visual-content {
+            text-align: center;
+            padding: 40px;
+        }
+        
+        .style-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            background: var(--bg-hover);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+        
+        .style-type {
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+        
+        .style-desc {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+        
+        /* Section */
+        section {
+            padding: 120px 0;
+            border-top: 1px solid var(--border);
+        }
+        
+        .section-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--text-tertiary);
+            margin-bottom: 16px;
+        }
+        
+        .section-title {
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+        }
+        
+        .section-desc {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            max-width: 480px;
+        }
+        
+        .section-header {
+            margin-bottom: 64px;
+        }
+        
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        @media (min-width: 768px) {
+            .features-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        .feature-card {
+            background: var(--bg);
+            padding: 48px;
+            transition: background 0.3s;
+        }
+        
+        .feature-card:hover {
+            background: var(--bg-card);
+        }
+        
+        .feature-number {
+            font-size: 0.7rem;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 24px;
+        }
+        
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+        
+        .feature-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        
+        /* Types Preview */
+        .types-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 32px;
+        }
+        
+        .type-tag {
+            padding: 10px 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            transition: all 0.2s;
+        }
+        
+        .type-tag:hover {
+            background: var(--bg-hover);
+            color: var(--text);
+        }
+        
+        /* Process */
+        .process-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 48px;
+        }
+        
+        @media (min-width: 768px) {
+            .process-list {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 32px;
+            }
+        }
+        
+        .process-item {
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+        }
+        
+        .process-number {
+            font-size: 0.7rem;
+            color: var(--text-tertiary);
+            margin-bottom: 16px;
+        }
+        
+        .process-title {
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+        
+        .process-desc {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            padding: 160px 0;
+        }
+        
+        .cta-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            margin-bottom: 24px;
+        }
+        
+        .cta-desc {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+        }
+        
+        .cta-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        @media (min-width: 640px) {
+            .cta-form {
+                flex-direction: row;
+            }
+        }
+        
+        /* Footer */
+        footer {
+            padding: 40px 0;
+            border-top: 1px solid var(--border);
+        }
+        
+        footer .container {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            align-items: center;
+        }
+        
+        @media (min-width: 768px) {
+            footer .container {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 32px;
+        }
+        
+        .footer-link {
+            font-size: 0.8rem;
+            color: var(--text-tertiary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .footer-link:hover {
+            color: var(--text);
+        }
+        
+        .footer-copy {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+        }
+        
+        /* Animations */
+        @media (prefers-reduced-motion: no-preference) {
+            .fade-up {
+                opacity: 0;
+                transform: translateY(20px);
+                animation: fadeUp 0.6s ease forwards;
+            }
+            
+            .fade-up-delay-1 { animation-delay: 0.1s; }
+            .fade-up-delay-2 { animation-delay: 0.2s; }
+            .fade-up-delay-3 { animation-delay: 0.3s; }
+            
+            @keyframes fadeUp {
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <nav>
+        <div class="container">
+            <span class="logo">VYB</span>
+            <a href="#waitlist" class="nav-link">Early Access</a>
+        </div>
+    </nav>
+    
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                
+                <div class="hero-text fade-up">
+                    <h1>Know your style.<br>Shop with confidence.</h1>
+                    <p>AI-powered style analysis. Discover your unique type and get instant outfit feedback before you buy.</p>
+                    
+                    <form id="waitlist-form" class="waitlist-form">
+                        <input type="email" id="email" class="input" placeholder="Email address" required>
+                        <button type="submit" class="btn">Join Waitlist</button>
+                    </form>
+                    <p class="form-note">Early access includes 1 month free.</p>
+                </div>
+                
+                <div class="hero-visual fade-up fade-up-delay-1">
+                    <div class="hero-visual-content">
+                        <span class="style-badge">Your VYB Type</span>
+                        <p class="style-type">Minimal Chic</p>
+                        <p class="style-desc">Clean lines, neutral tones, effortless elegance</p>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+    
+    <section>
+        <div class="container">
+            <div class="section-header">
+                <p class="section-label">How it works</p>
+                <h2 class="section-title">Two ways to use VYB</h2>
+                <p class="section-desc">First, discover your style archetype. Then, get feedback every time you shop.</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <p class="feature-number">01</p>
+                    <h3 class="feature-title">Find Your VYB Type</h3>
+                    <p class="feature-desc">Discover your unique style archetype from 18 VYB types. Like MBTI, but for fashion. Your type guides all recommendations.</p>
+                    
+                    <div class="types-grid">
+                        <span class="type-tag">Casual Easygoing</span>
+                        <span class="type-tag">Soft Romantic</span>
+                        <span class="type-tag">Urban Edge</span>
+                        <span class="type-tag">Minimal Chic</span>
+                        <span class="type-tag">+14 more</span>
+                    </div>
+                </div>
+                
+                <div class="feature-card">
+                    <p class="feature-number">02</p>
+                    <h3 class="feature-title">Instant Outfit Feedback</h3>
+                    <p class="feature-desc">Shopping online? In a fitting room? Upload any outfit and get immediate feedback on fit, color, and style compatibility.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section>
+        <div class="container">
+            <div class="section-header">
+                <p class="section-label">Process</p>
+                <h2 class="section-title">Simple and instant</h2>
+            </div>
+            
+            <div class="process-list">
+                <div class="process-item">
+                    <p class="process-number">01</p>
+                    <h3 class="process-title">Upload</h3>
+                    <p class="process-desc">Take a photo or screenshot any outfit you're considering.</p>
+                </div>
+                
+                <div class="process-item">
+                    <p class="process-number">02</p>
+                    <h3 class="process-title">Analyze</h3>
+                    <p class="process-desc">AI evaluates fit, color, and style match with your VYB type.</p>
+                </div>
+                
+                <div class="process-item">
+                    <p class="process-number">03</p>
+                    <h3 class="process-title">Decide</h3>
+                    <p class="process-desc">Get a clear recommendation. Buy it, skip it, or try alternatives.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="waitlist" class="cta-section">
+        <div class="container">
+            <h2 class="cta-title fade-up">Shop without regret</h2>
+            <p class="cta-desc fade-up fade-up-delay-1">Join the waitlist for early access.</p>
+            
+            <form class="cta-form fade-up fade-up-delay-2">
+                <input type="email" class="input" placeholder="Email address" required>
+                <button type="submit" class="btn">Get Early Access</button>
+            </form>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="#" class="footer-link">Privacy</a>
+                <a href="#" class="footer-link">Terms</a>
+                <a href="mailto:hello@vybme.com" class="footer-link">Contact</a>
+            </div>
+            <p class="footer-copy">© 2026 VYB</p>
+        </div>
+    </footer>
+    
+    <script>
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const btn = this.querySelector('button');
+                const originalText = btn.textContent;
+                
+                btn.textContent = 'Added ✓';
+                btn.style.opacity = '0.7';
+                
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.opacity = '1';
+                    this.reset();
+                }, 2000);
+            });
+        });
+    </script>
+    
+</body>
+</html>
